@@ -31,11 +31,10 @@ class RoleController extends Controller
 
     public function store(RoleRequest $request)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
 
-        Role::create($request->all());
+        $role = Role::create($request->only(['name']));
+
+        $role->givePermissionTo($request->permissions);
 
         return redirect()->route('role.index');
     }
@@ -44,12 +43,14 @@ class RoleController extends Controller
     {
         $permissions = Permission::query()->get(['id', 'cname']);
 
-        return view('role.create', compact('permissions', 'role'));
+        return view('role.edit', compact('permissions', 'role'));
     }
 
     public function update(RoleRequest $request, Role $role)
     {
-        $role->fill($request->all())->save();
+        $role->fill($request->only(['name']))->save();
+
+        $role->syncPermissions($request->permissions);
 
         return redirect()->route('role.index');
     }

@@ -1,12 +1,6 @@
 @extends('layouts.master')
 
 @section('title') 权限管理 @endsection
-@section('css')
-
-    <!-- DataTables -->
-    <link href="{{ URL::asset('/libs/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css"/>
-
-@endsection
 
 @section('content')
 
@@ -19,43 +13,62 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row ">
-                        <div class="col-md-6">
-                            @component('common-components.card-title')
-                                @slot('title') 权限列表  @endslot
-                                @slot('desc')管理团队的所有权限  @endslot
-                            @endcomponent
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-4">
-                                <button class="btn btn-primary">添加权限</button>
+                    <h4 class="card-title">权限列表</h4>
+                    <p class="card-title-desc">管理团队的所有权限</p>
+
+                    @component('form-components.form-search')
+                        @slot('groups')
+                            <div class="col-md-3 col-sm-12 mb-2">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">权限名称:</div>
+                                    </div>
+                                    <input type="text" class="form-control" name="name" value="{{ request('name') }}">
+                                </div>
                             </div>
-                        </div>
+                        @endslot
+                    @endcomponent
+
+                    {{--操作按钮--}}
+                    <div class="btn-group mb-4">
+                        <a class="btn btn-primary" href="{{ route('role.create') }}">添加权限</a>
                     </div>
 
-
-                    @include('form-components.form-search',['formGroup' => [
-    ['text' => '名称','name' => 'name']
-]])
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="thead-light">
+                    {{--表格--}}
+                    @component('table-components.table-responsive')
+                        @slot('head')
                             <tr>
                                 <th>#</th>
-                                <th>权限名称</th>
+                                <th>名称</th>
+                                <th>详情</th>
+                                <th>操作</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        @endslot
+                        @slot('body')
                             @foreach($roles as $role)
                                 <tr>
                                     <th>{{ $role->id }}</th>
                                     <td>{{ $role->name }}</td>
+                                    <td>
+                                        @foreach($role->permissions as $permission)
+                                            <span class="badge badge-pill badge-success">{{ $permission->cname }}</span>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <a class="font-size-18" delete data-toggle="tooltip" title="删除" href="">
+                                            <i class="mdi mdi-delete-off-outline"></i></a>
+                                        <form class="d-none" method="post"
+                                              action="{{ route('role.destroy',$role) }}">@method('DELETE')@csrf</form>
+
+                                        <a class="font-size-18" data-toggle="tooltip" title="编辑"
+                                           href="{{ route('role.edit',$role) }}"><i
+                                                class="mdi mdi-file-document-edit-outline"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        @endslot
+                    @endcomponent
+                    {{--分页--}}
                     @include('paginate-components.paginate',['models'=>$roles])
                 </div>
             </div>

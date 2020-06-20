@@ -6,8 +6,15 @@ class RoleRequest extends FormRequest
 {
     public function rules()
     {
-        return [
-            'name' => 'request'
+        $role = [
+            'name' => 'required|unique:roles,name',
         ];
+
+        //编辑 唯一条件
+        if ($this->method() === 'PUT')
+            $role['name'] .= ',' . $this->route('role')->id;
+
+
+        return $role;
     }
 }
