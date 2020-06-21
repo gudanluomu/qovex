@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RoleRequest;
-use App\Http\Resources\RoleResource;
-use App\Models\Permission;
+use Spatie\Permission\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -13,6 +12,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $roles = Role::query()
+            ->with('permissions')
             ->when($request->name, function ($query, $name) {
                 $query->where('name', 'like', "%{$name}%");
             })

@@ -9,7 +9,6 @@ class Role extends \Spatie\Permission\Models\Role
     //已有权限id数组
     public function getPermissionIdsAttribute()
     {
-        $this->givePermissionTo();
         return $this->permissions->pluck('id')->toArray();
     }
 }

@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\UserRequest;
+use App\Models\Role;
+use App\User;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+
+    public function index(Request $request)
+    {
+        $users = User::query()->paginate()->appends($request);
+
+        return view('user.index', compact('users'));
+    }
+
+    public function create(User $user)
+    {
+        $roles = Role::query()->with('permissions')->get();
+
+        return view('user.create', compact('roles', 'user'));
+    }
+
+    public function store(UserRequest $request, User $user)
+    {
+        $user->fill($request->all())->save();
+
+        $user->assignRole($request->roles);
+
+        return redirect()->route('user.index');
+    }
+
+    public function edit(User $user)
+    {
+        $roles = Role::query()->with('permissions')->get();
+
+        return view('user.create', compact('roles', 'user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $user->fill($request->all())->save();
+
+        $user->syncRoles($request->roles);
+
+        return redirect()->route('user.index');
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('user.index');
+    }
+}
