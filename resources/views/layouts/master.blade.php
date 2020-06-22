@@ -8,6 +8,8 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description"/>
     <meta content="Themesbrand" name="author"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <link href="{{URL::asset('libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ URL::asset('/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ URL::asset('images/favicon.ico')}}">
     @include('layouts.head')
@@ -58,6 +60,10 @@
 <!-- JAVASCRIPT -->
 @include('layouts.footer-script')
 
+<script src="{{URL::asset('/libs/select2/select2.min.js')}}"></script>
+<script src="{{URL::asset('/libs/select2/i18n/zh-CN.js')}}"></script>
+<script src="{{ URL::asset('/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+
 <script>
     /*表单错误信息清除*/
     $(document).ready(function () {
@@ -71,6 +77,28 @@
             if (confirm('确定删除?'))
                 $(this).next('form').submit()
         });
+
+        $(".select2").select2({
+            language: "zh-CN",
+            width: '100%',
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            templateResult: function (data) {
+                if ($(data.element).data('html'))
+                    return $(data.element).data('html');
+
+                return data.text;
+            },
+        });
+        @error('*')
+            Swal.fire({
+                type: 'error',
+                title: '{{ $message }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        @enderror
     })
 </script>
 </body>

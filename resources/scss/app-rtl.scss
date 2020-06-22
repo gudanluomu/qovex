@@ -28,7 +28,7 @@ File: Main RTL Css File
 @import "custom/structure/layouts";
 
 // Components
-@import "custom/components//waves";
+@import "custom/components/waves";
 @import "custom/components/avatar";
 @import "custom/components/helper";
 @import "custom/components/preloader";
@@ -67,6 +67,7 @@ File: Main RTL Css File
 @import "custom/pages/coming-soon";
 @import "custom/pages/timeline";
 @import "custom/pages/extras-pages";
+@import "custom/pages/user";
 
 // RTL
 @import "custom/rtl/general-rtl";

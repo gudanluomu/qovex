@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Department;
 use App\Models\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,9 @@ class UserController extends Controller
             ->paginate()
             ->appends($request->all());
 
-        return view('user.index', compact('users'));
+        $departments = Department::query()->withDepth()->orderBy('_lft')->get();
+
+        return view('user.index', compact('users', 'departments'));
     }
 
     public function create(User $user)

@@ -1,0 +1,22 @@
+
+.department-bar {
+    width: 236px;
+    float: left;
+    padding: 20px;
+    border-radius: 5px;
+    min-height: 480px;
+}
+
+.user-bar {
+    margin-left: 260px;
+}
+
+@media (max-width: 767px) {
+    .department-bar {
+        float: none;
+        width: 100%;
+    }
+    .user-bar {
+        margin: 0;
+    }
+}
