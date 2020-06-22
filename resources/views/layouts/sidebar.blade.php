@@ -32,13 +32,6 @@
                         <li class="menu-title">{{$menu['name']}}</li>
                     @endif
                 @endforeach
-
-                <li>
-                    <a href="index" class="waves-effect">
-                        <i class="mdi mdi-account-tie"></i>
-                        <span>用户管理</span>
-                    </a>
-                </li>
                 <li>
                     <a href="index" class="waves-effect">
                         <i class="mdi mdi-graph"></i>

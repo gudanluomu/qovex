@@ -12,7 +12,14 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::query()->paginate()->appends($request);
+        $users = User::query()
+            ->with('roles')
+            ->when($request->name, function ($query, $name) {
+                $query->where('name', $name)
+                    ->orWhere('email', $name);
+            })
+            ->paginate()
+            ->appends($request->all());
 
         return view('user.index', compact('users'));
     }
@@ -37,10 +44,10 @@ class UserController extends Controller
     {
         $roles = Role::query()->with('permissions')->get();
 
-        return view('user.create', compact('roles', 'user'));
+        return view('user.edit', compact('roles', 'user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $user->fill($request->all())->save();
 
