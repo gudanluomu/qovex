@@ -2,6 +2,8 @@
 
 @section('title') 员工管理 @endsection
 
+@inject('userModel','App\User')
+
 @section('content')
 
     @component('common-components.breadcrumb')
@@ -67,6 +69,21 @@
                                                value="{{ request('name') }}">
                                     </div>
                                 </div>
+                                <div class="col-md-3 col-sm-12 mb-2">
+                                    <div class="input-group mb-2" style="flex-wrap:nowrap">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">身份:</div>
+                                        </div>
+                                        <select name="department_type" class="select2" data-minimum-results-for-search="Infinity">
+                                            <option value="">所有身份</option>
+                                            @foreach($userModel->departmentTypeArr as $k=>$v)
+                                                <option value="{{ $k }}"
+                                                    {{ $k == request('department_type') ? 'selected' : '' }}>
+                                                    {{ $v }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             @endslot
                         @endcomponent
                         {{--操作按钮--}}
@@ -80,6 +97,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>名称</th>
+                                <th>部门</th>
+                                <th>身份</th>
                                 <th>职位</th>
                                 <th>操作</th>
                             </tr>
@@ -89,6 +108,8 @@
                                 <tr>
                                     <th>{{ $user->id }}</th>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->department->name }}</td>
+                                    <td>{{ $user->department_type_desc }}</td>
                                     <td>
                                         @foreach($user->roles as $role)
                                             <span class="badge badge-danger">{{ $role->name }}</span>

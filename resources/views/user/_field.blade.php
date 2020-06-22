@@ -1,3 +1,5 @@
+@inject('userModel','App\User')
+
 <div class="form-group position-relative">
     <label for="name">员工名称:</label>
 
@@ -34,6 +36,47 @@
            placeholder="请输入员工录密码" value="{{ old('password') }}">
 
     @error('password')
+    <div class="invalid-tooltip">
+        {{ $message }}
+    </div>
+    @enderror
+</div>
+
+<div class="form-group position-relative">
+    <label for="name">所属部门:</label>
+
+    <select name="department_id" class="form-control select2">
+        <option value="">顶级部门</option>
+        @foreach($departments as $department)
+            <option value="{{ $department->id }}" {{ $department->id == old('department_id',$user->department_id) ? 'selected' : '' }}
+                    data-html='<span style="margin-left: {{$department->depth*20}}px">{{ $department->name }}</span>'>
+                {{ $department->name }}</option>
+        @endforeach
+    </select>
+
+    @error('department_id')
+    <div class="invalid-tooltip">
+        {{ $message }}
+    </div>
+    @enderror
+</div>
+
+<div class="form-group position-relative">
+    <label for="name">员工身份:</label>
+
+    <div class="input-group is-invalid">
+        @foreach($userModel->departmentTypeArr as $k => $v)
+            <div class="custom-control custom-radio mb-2 mr-4">
+                <input type="radio" class="custom-control-input" name="department_type"
+                       id="department_type_{{$k}}" value="{{ $k }}"
+                       @if($k==old('department_type',$user->department_type??1)) checked @endif>
+                <label class="custom-control-label"
+                       for="department_type_{{$k}}">{{ $v }}</label>
+            </div>
+        @endforeach
+    </div>
+
+    @error('department_type')
     <div class="invalid-tooltip">
         {{ $message }}
     </div>

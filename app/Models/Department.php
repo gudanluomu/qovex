@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\NodeTrait;
 
@@ -11,11 +12,9 @@ class Department extends Model
 
     protected $fillable = ['name', 'parent_id'];
 
-    public function getTreeNameAttribute()
+    //员工关联
+    public function users()
     {
-        if ($this->depth < 1)
-            return $this->name;
-
-        return '|' . str_repeat('_', $this->depth * 5) . $this->name;
+        return $this->hasMany(User::class);
     }
 }
