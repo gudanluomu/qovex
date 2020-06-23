@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:group.index');
+    }
+
     public function index(Request $request)
     {
         $groups = Group::query()
@@ -37,7 +43,11 @@ class GroupController extends Controller
     public function store(GroupRequest $request, Group $group)
     {
         $user = User::query()->findOrFail($request->user_id);
+
         $group->fill($request->all())->save();
+
+        $user->group_id = $group->id;
+        $user->save();
 
         return redirect()->route('group.index');
     }
@@ -45,7 +55,11 @@ class GroupController extends Controller
     public function update(GroupRequest $request, Group $group)
     {
         $user = User::query()->findOrFail($request->user_id);
+
         $group->fill($request->all())->save();
+
+        $user->group_id = $group->id;
+        $user->save();
 
         return redirect()->route('group.index');
     }

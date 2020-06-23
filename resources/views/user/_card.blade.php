@@ -57,7 +57,15 @@
                     <td>{{ $user->department_type_desc }}</td>
                     <td>
                         @foreach($user->roles as $role)
-                            <span class="badge badge-danger">{{ $role->name }}</span>
+                            <span class="badge badge-danger" data-toggle="popover"
+                                  data-content-id="#perms_content_{{$role->id}}"
+                                  data-trigger="hover" data-title="权限详情">{{ $role->name }}</span>
+
+                            <div id="perms_content_{{$role->id}}" class="d-none">
+                                @foreach($role->permissions as $permission)
+                                    <span class="badge badge-pill badge-success">{{ $permission->cname }}</span>
+                                @endforeach
+                            </div>
                         @endforeach
                     </td>
                     <td>

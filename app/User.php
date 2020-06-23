@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Models\Department;
+use App\Models\Group;
+use App\Scopes\RuleScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,6 +35,13 @@ class User extends Authenticatable
         2 => '上级'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new RuleScope());
+    }
+
     //已有权限id数组
     public function getRoleIdsAttribute()
     {
@@ -52,9 +61,34 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class)->withDefault(['name' => '(暂无)']);
     }
 
-    //部门关联
     public function getDepartmentTypeDescAttribute()
     {
         return Arr::get($this->departmentTypeArr, $this->department_type, '未知');
+    }
+
+    //团队关联
+    public function group()
+    {
+        return $this->belongsTo(Group::class)->withDefault();
+    }
+
+    //是否是团长
+    public function isHead()
+    {
+        $gid = auth()->user()->group_id;
+
+        return $gid && $gid == auth()->user()->group->id;
+    }
+
+    //是否是超管
+    public function isAdmin()
+    {
+        return auth()->user()->email == '931692760@qq.com';
+    }
+
+    //组长
+    public function isHead2()
+    {
+        return auth()->user()->department_type == 2;
     }
 }

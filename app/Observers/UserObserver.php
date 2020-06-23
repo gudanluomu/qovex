@@ -6,6 +6,10 @@ use App\User;
 
 class UserObserver
 {
+    public function creating(User $user)
+    {
+        $user->group_id = auth()->user()->group_id;
+    }
 
     public function deleted(User $user)
     {

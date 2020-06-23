@@ -25,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user, $ability) {
+            //admin专属路由
+            $adminPermis = collect(config('data.sidebarmenu', []))
+                ->where('admin', 1)
+                ->pluck('route')
+                ->all();
+
+            return ($user->isHead() && !in_array($ability, $adminPermis)) || $user->isAdmin() ? true : null;
+        });
     }
 }

@@ -20,8 +20,11 @@
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                @foreach(config('data.sidebarmenu') as $menu)
-                    @if(isset($menu['route']))
+                @foreach($siderbar_menus as $menu)
+                    @if(
+    isset($menu['route']) &&
+    (!in_array($menu['route'],$siderbar_perms) || auth()->user()->can($menu['route']))
+)
                         <li>
                             <a href="{{ route($menu['route']) }}" class="waves-effect">
                                 <i class="mdi mdi-{{$menu['icon']}}"></i>

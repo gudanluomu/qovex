@@ -38,5 +38,5 @@ Route::group(['middleware' => 'auth'], function () {
     //团队
     Route::resource('group', 'GroupController')->except(['show']);
 
-    Route::get('{any}', 'QovexController@index');
+//    Route::get('{any}', 'QovexController@index');
 });
