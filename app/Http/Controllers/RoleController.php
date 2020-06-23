@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:role.index');
+    }
+
     public function index(Request $request)
     {
         $roles = Role::query()

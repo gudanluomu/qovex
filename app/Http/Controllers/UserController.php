@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:user.index');
+    }
 
     public function index(Request $request)
     {
