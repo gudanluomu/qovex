@@ -6,4 +6,5 @@ return [
     ['name' => '团队管理'],
     ['name' => '权限管理', 'icon' => 'account-lock', 'route' => 'role.index'],
     ['name' => '员工管理', 'icon' => 'account-tie', 'route' => 'user.index'],
+    ['name' => '团队管理', 'icon' => 'graph', 'route' => 'group.index'],
 ];

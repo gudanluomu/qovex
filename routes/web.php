@@ -31,8 +31,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('index', 'QovexController@index')->name('index');
     //权限管理
     Route::resource('role', 'RoleController')->except(['show']);
+    //员工
     Route::resource('user', 'UserController')->except(['show']);
+    //部门
     Route::resource('department', 'DepartmentController')->only(['store', 'update', 'destroy', 'show']);
+    //团队
+    Route::resource('group', 'GroupController')->except(['show']);
 
     Route::get('{any}', 'QovexController@index');
 });
