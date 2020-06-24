@@ -27,6 +27,7 @@ class CreatePermissionTables extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
+            $table->unsignedInteger('group_id')->nullable()->index()->comment('团队id');
             $table->timestamps();
         });
 

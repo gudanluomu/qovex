@@ -18,11 +18,16 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+
+
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'email' => $faker->unique()->words(3, true) . '@xhl.com',
         'email_verified_at' => now(),
         'password' => 'password',// '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
+        'department_id' => \App\Models\Department::query()->inRandomOrder()->value('id'),
+        'department_type' => $faker->randomKey((new User())->departmentTypeArr),
+        'group_id' => \App\Models\Group::query()->inRandomOrder()->value('id'),
     ];
 });

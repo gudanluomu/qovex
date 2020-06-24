@@ -4,10 +4,10 @@ namespace App\Observers;
 
 use App\Models\Role;
 
-class RoleObserver
+class RoleObserver extends BaseObserver
 {
     public function creating(Role $role)
     {
-        $role->group_id = auth()->user()->group_id;
+        $this->groupId($role);
     }
 }

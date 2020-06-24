@@ -4,11 +4,11 @@ namespace App\Observers;
 
 use App\User;
 
-class UserObserver
+class UserObserver extends BaseObserver
 {
     public function creating(User $user)
     {
-        $user->group_id = auth()->user()->group_id;
+        $this->groupId($user);
     }
 
     public function deleted(User $user)

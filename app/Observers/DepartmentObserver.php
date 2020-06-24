@@ -4,10 +4,10 @@ namespace App\Observers;
 
 use App\Models\Department;
 
-class DepartmentObserver
+class DepartmentObserver extends BaseObserver
 {
     public function creating(Department $department)
     {
-        $department->group_id = auth()->user()->group_id;
+        $this->groupId($department);
     }
 }

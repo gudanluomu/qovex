@@ -81,7 +81,7 @@ class User extends Authenticatable
     //是否是超管
     public function isAdmin()
     {
-        return auth()->user()->email == '931692760@qq.com';
+        return auth()->user()->email == 'admin@xhl.com';
     }
 
     //组长

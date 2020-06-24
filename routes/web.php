@@ -38,5 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     //团队
     Route::resource('group', 'GroupController')->except(['show']);
 
+    Route::resource('taobao-auth', 'TaobaoAuthController')->except(['show']);
+
 //    Route::get('{any}', 'QovexController@index');
 });

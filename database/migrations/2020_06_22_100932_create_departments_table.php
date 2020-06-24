@@ -16,6 +16,7 @@ class CreateDepartmentsTable extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('部门名称');
+            $table->unsignedInteger('group_id')->nullable()->index()->comment('团队id');
             //无限分类
             $table->nestedSet();
             $table->timestamps();

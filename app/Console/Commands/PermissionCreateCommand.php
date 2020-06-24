@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Permission;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Console\Command;
 
 class PermissionCreateCommand extends Command
