@@ -24,28 +24,28 @@
 
                 <div class="dropdown d-none d-sm-inline-block">
                     <button type="button" class="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="" src="images/flags/us.jpg" alt="Header Language" height="16">
+                        <img class="" src="/images/flags/us.jpg" alt="Header Language" height="16">
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
+                            <img src="/images/flags/spain.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Spanish</span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
+                            <img src="/images/flags/germany.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">German</span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
+                            <img src="/images/flags/italy.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Italian</span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
+                            <img src="/images/flags/russia.jpg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">Russian</span>
                         </a>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                             </a>
                             <a href="" class="text-reset notification-item">
                                 <div class="media">
-                                    <img src="images/users/avatar-3.jpg" class="mr-3 rounded-circle avatar-xs" alt="user-pic">
+                                    <img src="/images/users/avatar-3.jpg" class="mr-3 rounded-circle avatar-xs" alt="user-pic">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-1">James Lemire</h6>
                                         <div class="font-size-12 text-muted">
@@ -120,7 +120,7 @@
 
                             <a href="" class="text-reset notification-item">
                                 <div class="media">
-                                    <img src="images/users/avatar-4.jpg" class="mr-3 rounded-circle avatar-xs" alt="user-pic">
+                                    <img src="/images/users/avatar-4.jpg" class="mr-3 rounded-circle avatar-xs" alt="user-pic">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-1">Salena Layfield</h6>
                                         <div class="font-size-12 text-muted">
@@ -141,7 +141,7 @@
 
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="images/users/avatar-2.jpg" alt="Header Avatar">
+                        <img class="rounded-circle header-profile-user" src="/images/users/avatar-2.jpg" alt="Header Avatar">
                         <span class="d-none d-xl-inline-block ml-1">{{ auth()->user()->name }}</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                     </button>
@@ -174,21 +174,21 @@
             <div>
                 <!-- LOGO -->
                 <div class="navbar-brand-box">
-                    <a href="index" class="logo logo-dark">
+                    <a href="/index" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="images/logo-sm.png" alt="" height="20">
+                            <img src="/images/logo-sm.png" alt="" height="20">
                         </span>
                         <span class="logo-lg">
-                            <img src="images/logo-dark.png" alt="" height="17">
+                            <img src="/images/logo-dark.png" alt="" height="17">
                         </span>
                     </a>
 
-                    <a href="index" class="logo logo-light">
+                    <a href="/index" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="images/logo-sm.png" alt="" height="20">
+                            <img src="/images/logo-sm.png" alt="" height="20">
                         </span>
                         <span class="logo-lg">
-                            <img src="images/logo-light.png" alt="" height="19">
+                            <img src="/images/logo-light.png" alt="" height="19">
                         </span>
                     </a>
                 </div>
@@ -303,19 +303,19 @@
                                             <div class="row no-gutters">
                                                 <div class="col">
                                                     <a class="dropdown-icon-item" href="#">
-                                                        <img src="images/brands/github.png" alt="Github">
+                                                        <img src="/images/brands/github.png" alt="Github">
                                                         <span>GitHub</span>
                                                     </a>
                                                 </div>
                                                 <div class="col">
                                                     <a class="dropdown-icon-item" href="#">
-                                                        <img src="images/brands/bitbucket.png" alt="bitbucket">
+                                                        <img src="/images/brands/bitbucket.png" alt="bitbucket">
                                                         <span>Bitbucket</span>
                                                     </a>
                                                 </div>
                                                 <div class="col">
                                                     <a class="dropdown-icon-item" href="#">
-                                                        <img src="images/brands/dribbble.png" alt="dribbble">
+                                                        <img src="/images/brands/dribbble.png" alt="dribbble">
                                                         <span>Dribbble</span>
                                                     </a>
                                                 </div>
@@ -324,19 +324,19 @@
                                             <div class="row no-gutters">
                                                 <div class="col">
                                                     <a class="dropdown-icon-item" href="#">
-                                                        <img src="images/brands/dropbox.png" alt="dropbox">
+                                                        <img src="/images/brands/dropbox.png" alt="dropbox">
                                                         <span>Dropbox</span>
                                                     </a>
                                                 </div>
                                                 <div class="col">
                                                     <a class="dropdown-icon-item" href="#">
-                                                        <img src="images/brands/mail_chimp.png" alt="mail_chimp">
+                                                        <img src="/images/brands/mail_chimp.png" alt="mail_chimp">
                                                         <span>Mail Chimp</span>
                                                     </a>
                                                 </div>
                                                 <div class="col">
                                                     <a class="dropdown-icon-item" href="#">
-                                                        <img src="images/brands/slack.png" alt="slack">
+                                                        <img src="/images/brands/slack.png" alt="slack">
                                                         <span>Slack</span>
                                                     </a>
                                                 </div>
