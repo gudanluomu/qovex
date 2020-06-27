@@ -38,7 +38,13 @@ Route::group(['middleware' => 'auth'], function () {
     //团队
     Route::resource('group', 'GroupController')->except(['show']);
 
-    Route::resource('taobao-auth', 'TaobaoAuthController')->except(['show']);
+    Route::prefix('taobao')->name('taobao.')->namespace('Taobao')->group(function () {
+        Route::resource('auth', 'AuthController')->only(['index', 'create', 'destroy']);
+    });
 
 //    Route::get('{any}', 'QovexController@index');
 });
+
+Route::post('/taobao/auth', 'Taobao\AuthController@store');
+
+Route::get('callback', 'CallbackController@callback')->name('callback');

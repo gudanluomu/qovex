@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'login-status'
+        'login-status',
+        'taobao/auth'
     ];
 }
