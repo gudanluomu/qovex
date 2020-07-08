@@ -42,7 +42,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('auth', 'AuthController')->only(['index', 'create', 'destroy']);
     });
 
-//    Route::get('{any}', 'QovexController@index');
+    Route::prefix('douyin')->name('douyin.')->namespace('Douyin')->group(function () {
+        //抖音账号
+        Route::get('user/get-qrcode', 'UserController@getQrcode')->name('user.get-qrcode');
+        Route::get('user/check-qrcode/{token}', 'UserController@checkQrcode')->name('user.check-qrcode');
+        Route::resource('user', 'UserController')->only(['index', 'destroy']);
+    });
+
+    Route::get('{any}', 'QovexController@index');
 });
 
 Route::post('/taobao/auth', 'Taobao\AuthController@store');

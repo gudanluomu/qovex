@@ -47,6 +47,7 @@ class GroupController extends Controller
         $group->fill($request->all())->save();
 
         $user->group_id = $group->id;
+        $user->is_head = true;
         $user->save();
 
         return redirect()->route('group.index');
@@ -54,11 +55,14 @@ class GroupController extends Controller
 
     public function update(GroupRequest $request, Group $group)
     {
+        $group->user()->update(['is_head' => false]);
+
         $user = User::query()->findOrFail($request->user_id);
 
         $group->fill($request->all())->save();
 
         $user->group_id = $group->id;
+        $user->is_head = true;
         $user->save();
 
         return redirect()->route('group.index');

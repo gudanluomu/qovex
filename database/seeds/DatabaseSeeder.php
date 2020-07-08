@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             $group = factory(Group::class)->create(['user_id' => $user->id]);
 
             $user->group_id = $group->id;
+            $user->is_head = true;
             $user->save();
 
             /** @var Role $roles */

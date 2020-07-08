@@ -16,7 +16,7 @@ class CreateTaobaoAuthsTable extends Migration
         Schema::create('taobao_auths', function (Blueprint $table) {
             $table->engine = 'MyISAM';
             $table->id();
-            $table->string('expire_time')->index()->nullable()->comment('过期时间');
+            $table->string('expire_time', 60)->index()->nullable()->comment('过期时间');
             $table->string('access_token')->nullable();
             $table->string('token_type')->nullable();
             $table->unsignedInteger('expires_in')->nullable()->comment('Access token过期时间 10（表示10秒后过期）');

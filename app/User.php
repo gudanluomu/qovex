@@ -75,7 +75,7 @@ class User extends Authenticatable
     //是否是团长
     public function isHead()
     {
-        return auth()->id() == auth()->user()->group->user_id;
+        return $this->is_head;
     }
 
     //是否是超管

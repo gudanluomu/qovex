@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->boolean('is_head')->default(false)->comment('是否团长');
+            $table->unsignedTinyInteger('role_scope')->default(2)->comment('权限范围 1全部数据 2管辖范围');
             $table->unsignedInteger('department_id')->nullable()->index()->comment('部门id');
             $table->unsignedTinyInteger('department_type')->default(1)->index()->comment('身份 1员工 2上级');
             $table->unsignedInteger('group_id')->nullable()->index()->comment('团队id');

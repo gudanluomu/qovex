@@ -26,12 +26,12 @@ class AuthController extends Controller
         $query = [
             'response_type' => 'code',
             'client_id' => config('taobao.app_key'),
-            'redirect_uri' => config('taobao.oauth_redirect_uri'),
+            'redirect_uri' => 'http://taodoujia.cn/auth',
             'state' => $state,
             'view' => 'web'
         ];
 
-        $url = config('taobao.oauth_url') . '?' . http_build_query($query);
+        $url = 'https://oauth.taobao.com/authorize?' . http_build_query($query);
 
         return redirect($url);
     }
