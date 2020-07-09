@@ -23,6 +23,11 @@ class User extends Model implements UserContract
         return $this->cookie;
     }
 
+    public function getNick(): string
+    {
+        return $this->nickname;
+    }
+
     public function fillUserInfo(array $data)
     {
         $fillable = [

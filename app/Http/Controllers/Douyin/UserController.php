@@ -7,7 +7,6 @@ use App\Models\Douyin\User;
 use App\Util\Douyin\WebApi;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {

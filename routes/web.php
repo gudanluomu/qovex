@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('user/get-qrcode', 'UserController@getQrcode')->name('user.get-qrcode');
         Route::get('user/check-qrcode/{token}', 'UserController@checkQrcode')->name('user.check-qrcode');
         Route::resource('user', 'UserController')->only(['index', 'destroy']);
+        //抖音视频
+        Route::get('video', 'VideoController@index')->name('video.index');
     });
 
     Route::get('{any}', 'QovexController@index');

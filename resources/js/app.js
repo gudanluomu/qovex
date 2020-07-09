@@ -124,11 +124,12 @@ File: Main Js File
     function initComponents() {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
-        })
+        });
 
         $(function () {
             var myDefaultWhiteList = $.fn.tooltip.Constructor.Default.whiteList;
             myDefaultWhiteList['*'].push(/^data-[\w-]*$/i);
+            myDefaultWhiteList['*'].push('style');
 
             $('[data-toggle="popover"]').popover({
                 html: true,
