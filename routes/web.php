@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('user/check-qrcode/{token}', 'UserController@checkQrcode')->name('user.check-qrcode');
         Route::resource('user', 'UserController')->only(['index', 'destroy']);
         //抖音视频
+        Route::get('video/{video}/visibility', 'VideoController@visibility')->name('video.visibility');
         Route::get('video', 'VideoController@index')->name('video.index');
     });
 

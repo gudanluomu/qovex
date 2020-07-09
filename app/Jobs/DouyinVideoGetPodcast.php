@@ -42,7 +42,7 @@ class DouyinVideoGetPodcast implements ShouldQueue
 
             //遍历视频列表
             foreach (Arr::get($response, 'aweme_list', []) as $v) {
-                Video::create($v, $user);
+                Video::createByApi($v, $user);
             }
         });
     }

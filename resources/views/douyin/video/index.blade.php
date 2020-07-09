@@ -100,15 +100,6 @@
     <!-- end row -->
 @endsection
 
-@section('script')
-    <script !src="">
-        $(".visibility").click(function (event) {
-            event.preventDefault();
-            alert($(this).data('original-title'));
-        })
-    </script>
-@endsection
-
 @section('css')
     <style>
         .video-card:hover .video-btn {

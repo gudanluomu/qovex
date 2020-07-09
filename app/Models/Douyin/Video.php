@@ -14,10 +14,6 @@ class Video extends Model
         'aweme_id'
     ];
 
-    protected $casts = [
-        'create_time' => 'datetime'
-    ];
-
     public $statusValues = [
         102 => '公开',
         140 => '自己可见',
@@ -83,8 +79,8 @@ class Video extends Model
             [
                 'title' => $this->is_private ? '公开视频' : '隐藏',
                 'icon' => $this->is_private ? 'eye' : 'eye-off',
-                'url' => '',
-                'class' => 'visibility',
+                'url' => route('douyin.video.visibility', $this),
+                'class' => '',
             ], [
                 'title' => 'DOU+',
                 'icon' => 'heart-flash',
@@ -101,16 +97,32 @@ class Video extends Model
     }
 
     //根据单条response 创建或更新视频
-    public static function create(array $aweme, User $user)
+    public static function createByApi(array $aweme, User $user = null)
     {
-        //预制视频的所属团队 部门 员工,根据抖音账号的字段填写
-        $userAttr = [
-            'user_id' => $user->user_id,
-            'group_id' => $user->group_id,
-            'department_id' => $user->department_id,
-        ];
-
         //过滤数据,只拿需要的字段
+        $attr = self::getVideoAttr($aweme);
+
+        //查找视频是否存在
+        $video = self::query()->withoutGlobalScopes()->firstOrNew(Arr::only($attr, 'aweme_id'));
+
+        //新视频填写Attr
+        if (!$video->exists) {
+            $attr = array_merge($attr, [
+                'user_id' => $user->user_id,
+                'group_id' => $user->group_id,
+                'department_id' => $user->department_id,
+            ]);
+        }
+
+        $video->forceFill($attr)->save();
+
+        return $video;
+
+    }
+
+    //过滤api返回的信息,只拿需要的数据
+    public static function getVideoAttr(array $aweme)
+    {
         $attr = [];
         //字段映射
         $field = [
@@ -144,18 +156,6 @@ class Video extends Model
             $attr[$k] = Arr::get($aweme, $v);
         }
 
-        //查抄视频是否存在
-        $video = self::query()->withoutGlobalScopes()->firstOrNew(Arr::only($attr, 'aweme_id'));
-
-        if ($video->exists) {
-            //存在更新,但不更新userAttr
-            $video->forceFill($attr)->save();
-        } else {
-            //添加
-            $video->forceFill(array_merge($attr, $userAttr))->save();
-        }
-
-        return $video;
-
+        return $attr;
     }
 }
