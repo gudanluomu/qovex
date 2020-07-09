@@ -96,6 +96,11 @@ class Video extends Model
         ];
     }
 
+    public function getCreateTimeStrAttribute()
+    {
+        return date('Y年m月d日 H:i', $this->create_time);
+    }
+
     //根据单条response 创建或更新视频
     public static function createByApi(array $aweme, User $user = null)
     {

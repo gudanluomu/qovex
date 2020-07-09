@@ -68,7 +68,7 @@
                                             class="mdi mdi-{{$v['icon']}}"></i> {{ $v['value'] }}</div>
                                 @endforeach
                             </div>
-                            <div>{{ $video->create_time }}</div>
+                            <div>{{ $video->create_time_str }}</div>
                             <div>{{ $video->status_value_desc }}</div>
                             <div class="video-btn">
                                 <ui class="list-inline social-source-list">
