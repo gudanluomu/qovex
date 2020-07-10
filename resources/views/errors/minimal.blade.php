@@ -27,7 +27,7 @@
                                     <h1 class="error-page mt-5"><span>@yield('code')!</span></h1>
                                     <h4 class="mb-4 mt-5">@yield('message')</h4>
                                     <p class="mb-4 w-75 mx-auto">{{  Arr::random(config('data.sentences')) }}</p>
-                                    <a class="btn btn-primary mb-4 waves-effect waves-light" href="index"><i
+                                    <a class="btn btn-primary mb-4 waves-effect waves-light" href="/index"><i
                                             class="mdi mdi-home"></i> {{ __('Back to Dashboard') }}</a>
                                 </div>
 

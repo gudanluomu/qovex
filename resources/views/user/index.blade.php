@@ -54,7 +54,17 @@
                 var url = '/department/' + id;
 
                 $(this).find('form').attr('action', url);
-            })
+            });
+
+            @error('*')
+            Swal.fire({
+                type: 'error',
+                title: '{{ $message }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            @enderror
+
         })
     </script>
 @endsection

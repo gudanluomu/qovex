@@ -70,6 +70,7 @@
                             </div>
                             <div>{{ $video->create_time_str }}</div>
                             <div>{{ $video->status_value_desc }}</div>
+                            <div>{{ $video->sync_time_desc }}</div>
                             <div class="video-btn">
                                 <ui class="list-inline social-source-list">
                                     @foreach($video->video_btns as $btn)
@@ -137,7 +138,7 @@
         }
 
         .video-info > div {
-            margin-bottom: 1rem;
+            margin-bottom: .5rem;
         }
 
         .video-product {

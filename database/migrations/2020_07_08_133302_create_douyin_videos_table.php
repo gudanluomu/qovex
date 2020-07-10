@@ -40,6 +40,7 @@ class CreateDouyinVideosTable extends Migration
             $table->integer('share_count')->default(0);
             $table->text('play_addr')->nullable()->comment('播放地址');
             $table->text('origin_cover')->nullable()->comment('封面图');
+            $table->timestamp('info_update_time')->nullable()->index()->comment('视频信息更新时间');
             $table->unsignedInteger('group_id')->nullable()->index()->comment('团队id');
             $table->unsignedInteger('user_id')->nullable()->index()->comment('运营人id');
             $table->unsignedInteger('department_id')->nullable()->index()->comment('部门id');

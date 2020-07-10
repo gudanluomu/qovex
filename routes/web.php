@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     //团队
     Route::resource('group', 'GroupController')->except(['show']);
 
+    Route::resource('douplus', 'DouplusController')->only(['index', 'create', 'store']);
+
     Route::prefix('taobao')->name('taobao.')->namespace('Taobao')->group(function () {
         Route::resource('auth', 'AuthController')->only(['index', 'create', 'destroy']);
     });

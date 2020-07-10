@@ -3,6 +3,7 @@
 namespace App\Models\Douyin;
 
 use App\Scopes\RuleScope;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
@@ -73,19 +74,15 @@ class Video extends Model
         return Arr::get($this->statusValues, $this->status_value);
     }
 
+    //视频列表操作按钮
     public function getVideoBtnsAttribute()
     {
-        return [
+        $btns = [
             [
                 'title' => $this->is_private ? '公开视频' : '隐藏',
                 'icon' => $this->is_private ? 'eye' : 'eye-off',
                 'url' => route('douyin.video.visibility', $this),
                 'class' => '',
-            ], [
-                'title' => 'DOU+',
-                'icon' => 'heart-flash',
-                'url' => '',
-                'class' => 'bg-danger',
             ],
             [
                 'title' => '查看评论',
@@ -94,11 +91,29 @@ class Video extends Model
                 'class' => 'bg-info',
             ],
         ];
+
+        if (!$this->is_private) {
+            $btns[] = [
+                'title' => 'DOU+',
+                'icon' => 'heart-flash',
+                'url' => route('douplus.create', ['aweme_id' => $this->aweme_id]),
+                'class' => 'bg-danger',
+            ];
+        }
+
+        return $btns;
     }
 
+    //视频发布时间
     public function getCreateTimeStrAttribute()
     {
         return date('Y年m月d日 H:i', $this->create_time);
+    }
+
+    //视频信息同步时间
+    public function getSyncTimeDescAttribute()
+    {
+        return $this->info_update_time ? Carbon::parse($this->info_update_time)->diffForHumans() . '更新' : null;
     }
 
     //根据单条response 创建或更新视频
@@ -106,6 +121,7 @@ class Video extends Model
     {
         //过滤数据,只拿需要的字段
         $attr = self::getVideoAttr($aweme);
+        $attr['info_update_time'] = date('Y-m-d H:i:s');
 
         //查找视频是否存在
         $video = self::query()->withoutGlobalScopes()->firstOrNew(Arr::only($attr, 'aweme_id'));
@@ -162,5 +178,28 @@ class Video extends Model
         }
 
         return $attr;
+    }
+
+    //是否带货
+    public function isWithGoods(): bool
+    {
+        return $this->with_fusion_goods;
+    }
+
+    //智能优化key
+    public function getDouplusGoodsAimKey()
+    {
+        $key = null;
+
+        switch ($this->product_type) {
+            case 1://小店
+                $key = 53;
+                break;
+            case 2://淘宝
+                $key = 113;
+                break;
+        }
+
+        return $key;
     }
 }

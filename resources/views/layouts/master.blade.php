@@ -91,14 +91,6 @@
                 return data.text;
             },
         });
-        @error('*')
-            Swal.fire({
-                type: 'error',
-                title: '{{ $message }}',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        @enderror
     })
 </script>
 </body>
