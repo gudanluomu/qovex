@@ -6,8 +6,9 @@ use App\Douplus;
 use App\Http\Requests\DouplusRequest;
 use App\Models\Douyin\User;
 use App\Models\Douyin\Video;
-use App\Util\Douyin\WebApi;
+use App\Util\Douyin\DouplusOrderCreate;
 use Illuminate\Http\Request;
+use App\Util\Douyin\Request as ApiRequest;
 
 class DouplusController extends Controller
 {
@@ -21,7 +22,7 @@ class DouplusController extends Controller
         return view('douplus.index', compact('douplus'));
     }
 
-    public function create(Request $request, WebApi $api)
+    public function create(Request $request)
     {
         $video = Video::query()->with('dyuser')->where('aweme_id', $request->aweme_id)->first();
 
@@ -29,8 +30,8 @@ class DouplusController extends Controller
             abort(400, '参数异常');
         }
 
-        //获取视频信息并更新
-        $video = Video::createByApi($api->getVideoInfo($video));
+        //确认已更改
+        $video = $video->updateSelfByApi();
 
         if ($video->is_private) {
             abort(400, '视频仅自己可见');
@@ -127,7 +128,7 @@ class DouplusController extends Controller
 
     }
 
-    public function store(DouplusRequest $request, WebApi $api, Douplus $douplus)
+    public function store(DouplusRequest $request, ApiRequest $api, Douplus $douplus)
     {
         $video = Video::query()->findOrFail($request->video_id);
 
@@ -151,9 +152,13 @@ class DouplusController extends Controller
         $douplusParams['budget_int'] = $request->budget * 1000;
         $douplusParams['estimate_show'] = $request->budget * 50;
         $douplusParams['duration'] = $request->duration * 3600;
+        $douplusParams['item_id'] = $video->aweme_id;
 
         //DOU+ API
-        $res = $api->douplusOrderCreate($request->pay_user, $video, $douplusParams, $request->num);
+        $dRequest = new DouplusOrderCreate();
+        $dRequest->setQuery($douplusParams);
+
+        $res = $api->request($dRequest, $request->pay_user, $request->num);
 
         $attr = [
             'info' => $douplusAttr,

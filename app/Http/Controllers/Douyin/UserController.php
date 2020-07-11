@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Douyin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Douyin\User;
-use App\Util\Douyin\WebApi;
+use App\Util\Douyin\GetPidRequest;
+use App\Util\Douyin\GetUserInfoRequest;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use App\Util\Douyin\Request as ApiRequest;
 
 class UserController extends Controller
 {
@@ -19,14 +21,14 @@ class UserController extends Controller
 
     public function getQrcode()
     {
-        $url = 'https://e.douyin.com/passport/web/get_qrcode/?next=https:%2F%2Fe.douyin.com%2Fsite&aid=1575';
+        $url = 'https://www.douyin.com/passport/web/check_qrconnect/?aid=1128&next=https:%2F%2Fwww.douyin.com%2Flogin%2Fcallback%2F%3Fnext%3Dhttps%253A%252F%252Fwww.douyin.com%252Fpages%252Fdouyin_recharge%252Findex.html&token=123';
 
         return json_decode((new Client())->request('get', $url)->getBody()->getContents(), 1);
     }
 
     public function checkQrcode($token)
     {
-        $url = 'https://e.douyin.com/passport/web/check_qrconnect/?next=https:%2F%2Fe.douyin.com%2Fsite%2F&token=' . $token . '&aid=1575';
+        $url = 'https://www.douyin.com/passport/web/check_qrconnect/?aid=1128&next=https:%2F%2Fwww.douyin.com%2Flogin%2Fcallback%2F%3Fnext%3Dhttps%253A%252F%252Fwww.douyin.com%252Fpages%252Fdouyin_recharge%252Findex.html&token=' . $token;
 
         $request = (new Client())->request('get', $url);
 
@@ -49,12 +51,15 @@ class UserController extends Controller
                 }
             }
 
-            $api = new WebApi();
+            $api = new ApiRequest();
+
+            $pidApi = new GetPidRequest();
+            $userApi = new GetUserInfoRequest();
 
             //获取淘宝pid
-            $user->pid = $api->getPid($user);
+            $user->pid = $api->request($pidApi, $user);
             //获取用户信息
-            $user->fillUserInfo($api->getUserInfo($user));
+            $user->fillUserInfo($api->request($userApi, $user));
             //保存
             $group_id = auth()->user()->group_id;
             if ($existsUser = User::query()->withoutGlobalScopes()->where('uid', $user->uid)->first()) {

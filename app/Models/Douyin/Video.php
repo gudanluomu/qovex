@@ -3,6 +3,8 @@
 namespace App\Models\Douyin;
 
 use App\Scopes\RuleScope;
+use App\Util\Douyin\GetVideoListRequest;
+use App\Util\Douyin\Request;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -201,5 +203,18 @@ class Video extends Model
         }
 
         return $key;
+    }
+
+    //同步视频数据
+    public function updateSelfByApi()
+    {
+        $apiRequest = new Request();
+
+        $re = new GetVideoListRequest();
+
+        $re->setVideo($this);
+
+        //获取视频信息并更新
+        return Video::createByApi($apiRequest->request($re, $this->dyuser));
     }
 }

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Douyin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Douyin\Video;
-use App\Util\Douyin\WebApi;
+use App\Util\Douyin\VideoUpdateRequest;
 use Illuminate\Http\Request;
+use App\Util\Douyin\Request as ApiRequest;
 
 class VideoController extends Controller
 {
@@ -20,16 +21,20 @@ class VideoController extends Controller
     }
 
     //公开/隐藏视频
-    public function visibility(Video $video, WebApi $api)
+    public function visibility(Video $video, ApiRequest $apiRequest)
     {
-        //更改视频信息
-        $api->videoUpdate($video->dyuser, [
+        $re = new VideoUpdateRequest();
+
+        $re->setFormParams([
             'item_id' => $video->aweme_id,
             'visibility_type' => (int)!$video->is_private
         ]);
 
-        //获取视频信息并更新
-        Video::createByApi($api->getVideoInfo($video));
+        //更改视频信息
+        $apiRequest->request($re, $video->dyuser);
+
+        //确认已更改
+        $video->updateSelfByApi();
 
         return back();
     }

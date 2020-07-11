@@ -17,8 +17,8 @@ class CreateDouyinVideosTable extends Migration
             $table->id();
             $table->string('aweme_id', 60)->unique()->comment('视频id');
             $table->string('author_user_id', 60)->index()->comment('作者id');
-            $table->string('product_id', 60)->nullable()->comment('商品id');
-            $table->unsignedTinyInteger('product_type')->nullable()->comment('商品类型 1小店 2淘宝');
+            $table->string('product_id', 60)->index()->nullable()->comment('商品id');
+            $table->unsignedTinyInteger('product_type')->index()->nullable()->comment('商品类型 1小店 2淘宝');
             $table->tinyInteger('aweme_type')->index()->comment('视频类型');
             $table->unsignedBigInteger('create_time')->index()->comment('发布时间');
             $table->boolean('is_live_replay')->default(false)->comment('正在直播');

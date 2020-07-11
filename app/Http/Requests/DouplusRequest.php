@@ -4,7 +4,8 @@ namespace App\Http\Requests;
 
 
 use App\Models\Douyin\User;
-use App\Util\Douyin\WebApi;
+use App\Util\Douyin\GetDouplusRefund;
+use App\Util\Douyin\Request;
 
 class DouplusRequest extends FormRequest
 {
@@ -17,11 +18,11 @@ class DouplusRequest extends FormRequest
 
                 $this->offsetSet('pay_user', $user);
 
-                $res = (new WebApi())->getDouplusRefundInfo($user);
+                $res = (new Request())->request(new GetDouplusRefund(), $user);
 
                 $pay_amount = $this->budget * $this->num;
 
-                if ($pay_amount > $res['total_balance'] && false) {
+                if ($pay_amount > $res['total_balance']) {
                     $fail('付款账号余额不足');
                 }
             }],

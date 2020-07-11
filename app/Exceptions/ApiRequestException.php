@@ -6,7 +6,7 @@ use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
-class ApiRequestException extends Exception implements HttpExceptionInterface
+class ApiRequestException extends Exception
 {
     protected $exceptionContext;
 
@@ -14,17 +14,7 @@ class ApiRequestException extends Exception implements HttpExceptionInterface
     {
         parent::__construct($message, $code, $previous);
 
-        $this->exceptionContext = $exceptionContext;
-    }
-
-    public function getStatusCode()
-    {
-        return 400;
-    }
-
-    public function getHeaders()
-    {
-
+        $this->exceptionContext = (array)$exceptionContext;
     }
 
     public function exceptionContext()
