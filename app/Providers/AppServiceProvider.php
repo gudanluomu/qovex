@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -30,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         \App\User::observe(\App\Observers\UserObserver::class);
         \App\Models\Role::observe(\App\Observers\RoleObserver::class);
         \App\Models\Department::observe(\App\Observers\DepartmentObserver::class);
+        \App\Models\Douyin\Video::observe(\App\Observers\Douyin\VideoObserver::class);
+        \App\Models\Douyin\User::observe(\App\Observers\Douyin\UserObserver::class);
 
         View::composer('layouts.sidebar', function ($view) {
 

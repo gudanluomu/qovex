@@ -14,6 +14,7 @@ class CreateDouplusesTable extends Migration
     public function up()
     {
         Schema::create('doupluses', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->string('aweme_id', 60)->nullable()->index()->comment('视频id');
             $table->string('author_user_id', 60)->nullable()->index()->comment('视频抖音号id');

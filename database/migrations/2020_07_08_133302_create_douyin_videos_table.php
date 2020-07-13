@@ -14,6 +14,7 @@ class CreateDouyinVideosTable extends Migration
     public function up()
     {
         Schema::create('douyin_videos', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->string('aweme_id', 60)->unique()->comment('视频id');
             $table->string('author_user_id', 60)->index()->comment('作者id');
@@ -55,6 +56,6 @@ class CreateDouyinVideosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('douyin_videos');
     }
 }

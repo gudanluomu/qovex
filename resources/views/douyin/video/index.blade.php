@@ -44,19 +44,22 @@
                                     <i class="mdi mdi-18px mdi-shopping text-warning"></i>
                                 </div>
                                 <div class="d-none" id="popover_content_{{$video->id}}">
-                                    <div class="d-flex">
-                                        <div class="product-cover bg-cover"
-                                             style="background-image: url({{ $video->origin_cover }});">
+                                    @foreach($video->products as $product)
+                                        <div class="d-flex mb-2">
+                                            <div class="product-cover bg-cover"
+                                                 style="background-image: url({{ $product->images }});">
+                                            </div>
+                                            <div
+                                                class="ml-2 d-flex flex-column justify-content-around"
+                                                style="width: 200px">
+                                                <h5 class="card-title">{{ $product->title }}</h5>
+                                                <p class="card-text">
+                                                    佣金比例:<small class="text-muted">{{ $product->custom_rate }}
+                                                        %</small>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div
-                                            class="ml-2 d-flex flex-column justify-content-around text-nowrap overflow-hidden"
-                                            style="width: 200px">
-                                            <h5 class="card-title">商品标题商品标题商品标题商品标题商品标题</h5>
-                                            <p class="card-text">
-                                                佣金比例:<small class="text-muted">50%</small>
-                                            </p>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             @endif
                         </div>

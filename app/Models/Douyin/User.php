@@ -67,9 +67,10 @@ class User extends Model implements UserContract
             $this->member_id = $pidArr[1];
             $this->site_id = $pidArr[2];
             $this->adzone_id = $pidArr[3];
-
-            $this->pid_update_time = date('Y-m-d H:i:s');
         }
+
+        $this->pid_update_time = date('Y-m-d H:i:s');
+
     }
 
     public function isExpired()

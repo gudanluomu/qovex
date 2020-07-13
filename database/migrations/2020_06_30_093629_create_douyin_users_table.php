@@ -14,6 +14,7 @@ class CreateDouyinUsersTable extends Migration
     public function up()
     {
         Schema::create('douyin_users', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->string('bind_phone', 16)->nullable()->index()->comment('抖音绑定手机号');
             $table->string('uid', 60)->unique()->comment('抖音唯一id');

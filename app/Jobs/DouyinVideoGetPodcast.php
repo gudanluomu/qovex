@@ -14,24 +14,30 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class DouyinVideoGetPodcast implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $user;
+
+    public function __construct($user = null)
     {
-        //
+        $this->user = $user;
     }
 
     public function handle()
     {
-        $users = User::query()->where('cookie_status', true)->get(['id', 'cookie', 'group_id', 'user_id', 'department_id']);
+        if (is_null($this->user)) {
+            $users = User::query()->where('cookie_status', true)->get(['id', 'cookie', 'group_id', 'user_id', 'department_id']);
+        } else {
+            if ($this->user instanceof Collection) {
+                $users = $this->user;
+            } else {
+                $users = collect([$this->user]);
+            }
+        }
 
         $request = new Request();
 

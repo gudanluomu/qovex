@@ -14,6 +14,7 @@ class CreateDouyinAdsTable extends Migration
     public function up()
     {
         Schema::create('douyin_ads', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->id();
             $table->string('task_id', 60)->unique();
             $table->tinyInteger('state')->index()->comment('任务状态');
@@ -38,7 +39,6 @@ class CreateDouyinAdsTable extends Migration
             $table->unsignedInteger('live_follow')->default(0)->comment('直播关注');
             $table->unsignedInteger('live_comment')->default(0)->comment('直播评论');
 
-
             $table->timestamp('cost_update_time')->nullable()->index()->comment('消耗更新时间');
             $table->unsignedInteger('group_id')->nullable()->index()->comment('团队id');
             $table->unsignedInteger('user_id')->nullable()->index()->comment('视频当时运营人id');
@@ -54,6 +54,6 @@ class CreateDouyinAdsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('douplus_tasks');
+        Schema::dropIfExists('douyin_ads');
     }
 }

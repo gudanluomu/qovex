@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Douyin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\DouyinVideoGetPodcast;
 use App\Models\Douyin\Video;
 use App\Util\Douyin\VideoUpdateRequest;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class VideoController extends Controller
     public function index(Request $request)
     {
         $videos = Video::query()
+            ->with('products')
             ->orderByDesc('create_time')
             ->paginate(12)
             ->appends($request->all());

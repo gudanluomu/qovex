@@ -2,6 +2,7 @@
 
 namespace App\Models\Douyin;
 
+use App\Models\Product;
 use App\Scopes\RuleScope;
 use App\Util\Douyin\GetVideoListRequest;
 use App\Util\Douyin\Request;
@@ -34,6 +35,16 @@ class Video extends Model
     public function dyuser()
     {
         return $this->belongsTo(User::class, 'author_user_id', 'uid');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,
+            'video_has_product',
+            'vid',
+            'pid',
+            'aweme_id',
+            'product_id');
     }
 
     public function getDescAttribute()
