@@ -54,6 +54,9 @@
                                                 style="width: 200px">
                                                 <h5 class="card-title">{{ $product->title }}</h5>
                                                 <p class="card-text">
+                                                    {{ $product->goods_source }}
+                                                </p>
+                                                <p class="card-text">
                                                     佣金比例:<small class="text-muted">{{ $product->custom_rate }}
                                                         %</small>
                                                 </p>

@@ -21,7 +21,7 @@ class Request
     }
 
     //工共请求方法
-    public function request(RequestContract $request, $user = null, $num = 1)
+    public function request(RequestContract $request, $user = null, $num = 0)
     {
         list($url, $options) = [$request->url(), $request->options()];
         //接口是否风控
@@ -33,7 +33,7 @@ class Request
             //单次
             $options['headers']['Cookie'] = $request->getCookie($user);
             //并发多次
-            if ($num > 1) {
+            if ($num > 0) {
                 return $this->pollRequest($request, $user, $url, $options, $num);
             }
         } elseif ($user instanceof Collection) {

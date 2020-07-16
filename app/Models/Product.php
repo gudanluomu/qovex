@@ -24,10 +24,26 @@ class Product extends Model
     {
         return $this->belongsToMany(Video::class,
             'video_has_product',
-            'pid',
             'vid',
+            'pid',
             'product_id',
             'aweme_id');
+    }
+
+    public function setGoodsSourceAttribute($value)
+    {
+        $this->attributes['goods_source'] = $value;
+
+        $goods_type = null;
+
+        if (stripos($value, '小店') !== false) {
+            $goods_type = 1;
+        } elseif (stripos($value, '淘宝') !== false) {
+            $goods_type = 2;
+        }
+
+        $this->attributes['goods_type'] = $goods_type;
+
     }
 
     public static function createByApi($data, Video $video)

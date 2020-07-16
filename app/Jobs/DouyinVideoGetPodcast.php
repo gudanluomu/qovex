@@ -22,39 +22,21 @@ class DouyinVideoGetPodcast implements ShouldQueue
 
     public $user;
 
-    public function __construct($user = null)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
 
     public function handle()
     {
-        if (is_null($this->user)) {
-            $users = User::query()->where('cookie_status', true)->get(['id', 'cookie', 'group_id', 'user_id', 'department_id']);
-        } else {
-            if ($this->user instanceof Collection) {
-                $users = $this->user;
-            } else {
-                $users = collect([$this->user]);
-            }
-        }
-
         $request = new Request();
 
         $api = new GetVideoListRequest();
 
-        //并发获取账号视频列表 返回数据格式 user_id=>[接口response]
-        $request->request($api, $users)->each(function ($response, $user_id) use ($users) {
-            //根据key获取抖音账号
-            $user = $users->where('id', $user_id)->first();
-            //没找到员工
-            if (is_null($user)) return;
-
-            //遍历视频列表
-            foreach (Arr::get($response, 'aweme_list', []) as $v) {
-                Video::createByApi($v, $user);
-            }
-        });
+        //遍历视频列表
+        foreach (Arr::get($request->request($api, $this->user), 'aweme_list', []) as $v) {
+            Video::createByApi($v, $this->user);
+        }
     }
 
 

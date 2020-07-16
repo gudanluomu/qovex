@@ -20,14 +20,16 @@ class VideoObserver
                 ->then(function (ResponseInterface $res) use ($video) {
 
                     $promotions = json_decode(json_decode($res->getBody()->getContents(), 1)['promotion'], 1);
-                    $product = [];
+                    $product = collect([]);
 
                     foreach ($promotions as $v) {
-                        $product[] = Product::createByApi($v, $video)->product_id;
+                        $product->push(Product::createByApi($v, $video));
                     }
 
-                    $video->products()->attach($product);
+                    $video->products()->attach($product->pluck('product_id'));
 
+                    $video->product_type = $product->first()->goods_type;
+                    $video->save();
                 });
         }
     }

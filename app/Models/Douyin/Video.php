@@ -73,10 +73,6 @@ class Video extends Model
 
     public function getDescLinkAttribute()
     {
-        if ($this->is_private) {
-            return $this->desc;
-        }
-
         $link = '<a href="%s" target="_blank">%s</a>';
 
         return sprintf($link, $this->share_url, $this->desc);

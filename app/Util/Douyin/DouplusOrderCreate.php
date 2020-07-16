@@ -4,8 +4,6 @@
 namespace App\Util\Douyin;
 
 
-use Illuminate\Support\Arr;
-
 class DouplusOrderCreate extends AppRequest
 {
     public $query = [
@@ -16,7 +14,7 @@ class DouplusOrderCreate extends AppRequest
 
     public function url(): string
     {
-        return 'https://aweme.snssdk.com/aweme/v2/douplus/refund/info/';
+        return 'https://aweme.snssdk.com/aweme/v2/douplus/order/create/';
     }
 
     public function options(): array
