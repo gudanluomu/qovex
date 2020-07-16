@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->tinyInteger('promotion_source')->nullable();
             $table->integer('cos_fee')->default(0);
             $table->string('goods_source', 20)->nullable();
-            $table->tinyInteger('goods_type')->index()->nullable();
+            $table->tinyInteger('goods_type')->index()->nullable()->comment('1小店2淘宝');
             $table->unsignedTinyInteger('rate_type')->default(1)->comment('1普通,2线下,3全投');
             $table->unsignedTinyInteger('custom_rate')->nullable()->comment('自定义佣金比例');
             $table->unsignedInteger('group_id')->nullable()->index()->comment('团队id');
