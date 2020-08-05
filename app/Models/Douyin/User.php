@@ -18,9 +18,14 @@ class User extends Model implements UserContract
         static::addGlobalScope(new RuleScope());
     }
 
-    public function getCookie(): string
+    public function getCookie()
     {
         return $this->cookie;
+    }
+
+    public function getUid()
+    {
+        return $this->uid;
     }
 
     public function getNick(): string

@@ -34,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Department::observe(\App\Observers\DepartmentObserver::class);
         \App\Models\Douyin\Video::observe(\App\Observers\Douyin\VideoObserver::class);
         \App\Models\Douyin\User::observe(\App\Observers\Douyin\UserObserver::class);
+        \App\Models\Douyin\VideoAd::observe(\App\Observers\Douyin\VideoAdObserver::class);
 
         View::composer('layouts.sidebar', function ($view) {
 

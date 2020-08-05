@@ -4,6 +4,8 @@
 namespace App\Util\Douyin;
 
 
+use Illuminate\Support\Str;
+
 abstract class AppRequest implements RequestContract
 {
     public function comQuery(): array
@@ -14,7 +16,7 @@ abstract class AppRequest implements RequestContract
             'app_name' => 'aweme',
             'app_type' => 'normal',
             'channel' => '360_aweme',
-            'cdid' => 'c36e0680-6610-4850-b207-d63a19c2bef3',
+//            'cdid' => 'c36e0680-6610-4850-b207-d63a19c2bef3',
             'cpu_support64' => false,
             'device_brand' => 'Xiaomi',
             'device_platform' => 'android',
@@ -29,9 +31,9 @@ abstract class AppRequest implements RequestContract
             'request_tag_from' => 'h5',
             'resolution' => '810*1440',
             'ssmix' => 'a',
-            'update_version_code' => '11009900',
+            'update_version_code' => 11009900,
             'version_name' => '11.0.0',
-            'version_code' => '110000',
+            'version_code' => 110000,
             'openudid' => '1890c0263fa84f66',
             'uuid' => '990000000325417',
             //重要信息

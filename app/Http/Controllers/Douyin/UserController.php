@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Douyin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Douyin\User;
+use App\Util\Douyin\Api\DouplusOrderItemList;
+use App\Util\Douyin\Api\DouplusOrderStatByItem;
 use App\Util\Douyin\GetPidRequest;
 use App\Util\Douyin\GetUserInfoRequest;
 use GuzzleHttp\Client;
